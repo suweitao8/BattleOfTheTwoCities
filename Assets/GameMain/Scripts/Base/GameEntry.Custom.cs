@@ -26,10 +26,17 @@ namespace StarForce
             private set;
         }
 
+        public static PlayerInputComponent PlayerInput
+        {
+            get;
+            private set;
+        }
+
         private static void InitCustomComponents()
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             HPBar = UnityGameFramework.Runtime.GameEntry.GetComponent<HPBarComponent>();
+            PlayerInput = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerInputComponent>();
         }
     }
 }

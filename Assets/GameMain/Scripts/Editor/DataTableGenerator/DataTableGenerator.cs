@@ -50,11 +50,11 @@ namespace StarForce.Editor.DataTableTools
 
         public static void GenerateDataFile(DataTableProcessor dataTableProcessor, string dataTableName)
         {
-            string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
-            if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
-            {
-                File.Delete(binaryDataFileName);
-            }
+            // string binaryDataFileName = Utility.Path.GetRegularPath(Path.Combine(DataTablePath, dataTableName + ".bytes"));
+            // if (!dataTableProcessor.GenerateDataFile(binaryDataFileName) && File.Exists(binaryDataFileName))
+            // {
+            //     File.Delete(binaryDataFileName);
+            // }
         }
 
         public static void GenerateCodeFile(DataTableProcessor dataTableProcessor, string dataTableName)

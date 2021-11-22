@@ -9,6 +9,7 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
@@ -19,17 +20,12 @@ namespace StarForce
     {
         public static readonly string[] DataTableNames = new string[]
         {
-            "Aircraft",
-            "Armor",
-            "Asteroid",
             "Entity",
             "Music",
             "Scene",
             "Sound",
-            "Thruster",
             "UIForm",
             "UISound",
-            "Weapon",
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -81,6 +77,9 @@ namespace StarForce
                     return;
                 }
             }
+            
+            // 把 Launcher 场景的相机删掉，该相机可能用于 Splash 场景的播放
+            GameObject.Destroy(Camera.main.gameObject);
 
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             ChangeState<ProcedureChangeScene>(procedureOwner);
@@ -132,7 +131,7 @@ namespace StarForce
                 (assetName, asset, duration, userData) =>
                 {
                     m_LoadedFlag[Utility.Text.Format("Font.{0}", fontName)] = true;
-                    UGuiForm.SetMainFont((Font)asset);
+                    UGuiForm.SetMainFont((TMP_FontAsset)asset);
                     Log.Info("Load font '{0}' OK.", fontName);
                 },
 

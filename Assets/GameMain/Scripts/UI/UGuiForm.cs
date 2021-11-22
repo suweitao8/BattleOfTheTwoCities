@@ -7,6 +7,7 @@
 
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityGameFramework.Runtime;
@@ -18,7 +19,9 @@ namespace StarForce
         public const int DepthFactor = 100;
         private const float FadeTime = 0.3f;
 
-        private static Font s_MainFont = null;
+        public Selectable firstSelectable;
+
+        private static TMP_FontAsset s_MainFont = null;
         private Canvas m_CachedCanvas = null;
         private CanvasGroup m_CanvasGroup = null;
         private List<Canvas> m_CachedCanvasContainer = new List<Canvas>();
@@ -61,7 +64,7 @@ namespace StarForce
             GameEntry.Sound.PlayUISound(uiSoundId);
         }
 
-        public static void SetMainFont(Font mainFont)
+        public static void SetMainFont(TMP_FontAsset mainFont)
         {
             if (mainFont == null)
             {
@@ -93,8 +96,16 @@ namespace StarForce
             transform.sizeDelta = Vector2.zero;
 
             gameObject.GetOrAddComponent<GraphicRaycaster>();
-
-            Text[] texts = GetComponentsInChildren<Text>(true);
+            
+            // 初始化选中对象
+            if (firstSelectable != null)
+            {
+                firstSelectable.Select();
+            }
+            
+            // TODO 进行多语言的设置，暂时屏蔽
+            return;
+            TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>(true);
             for (int i = 0; i < texts.Length; i++)
             {
                 texts[i].font = s_MainFont;
