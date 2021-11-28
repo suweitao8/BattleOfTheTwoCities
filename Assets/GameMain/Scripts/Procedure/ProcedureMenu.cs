@@ -9,20 +9,12 @@ using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureMenu : ProcedureBase
     {
         private bool m_StartGame = false;
         private MenuForm m_MenuForm = null;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return false;
-            }
-        }
 
         public void StartGame()
         {
@@ -58,8 +50,7 @@ namespace StarForce
 
             if (m_StartGame)
             {
-                procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Main"));
-                procedureOwner.SetData<VarByte>("GameMode", (byte)GameMode.Survival);
+                procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.LevelSelect"));
                 ChangeState<ProcedureChangeScene>(procedureOwner);
             }
         }

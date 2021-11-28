@@ -8,20 +8,13 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace StarForce
+namespace GameMain
 {
     /// <summary>
     /// 游戏入口。
     /// </summary>
     public partial class GameEntry : MonoBehaviour
     {
-        [RuntimeInitializeOnLoadMethod]
-        private static void AlwayLoadLauncher()
-        {
-            if (SceneManager.GetActiveScene().buildIndex == 0) return;
-            SceneManager.LoadScene(0);
-        }
-        
         private void Start()
         {
             InitBuiltinComponents();

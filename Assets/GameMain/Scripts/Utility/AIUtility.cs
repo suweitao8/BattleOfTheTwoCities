@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
-namespace StarForce
+namespace GameMain
 {
     /// <summary>
     /// AI 工具类。

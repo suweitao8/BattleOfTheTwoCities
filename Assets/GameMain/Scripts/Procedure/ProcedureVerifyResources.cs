@@ -2,19 +2,11 @@
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureVerifyResources : ProcedureBase
     {
         private bool m_VerifyResourcesComplete = false;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return true;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

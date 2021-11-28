@@ -9,11 +9,11 @@ using GameFramework;
 using UnityEditor;
 using UnityEngine;
 
-namespace StarForce.Editor.DataTableTools
+namespace GameMain.Editor.DataTableTools
 {
     public sealed class DataTableGeneratorMenu
     {
-        [MenuItem("Star Force/Generate DataTables")]
+        [MenuItem("GameMain/Generate DataTables", priority = 1000)]
         private static void GenerateDataTables()
         {
             foreach (string dataTableName in ProcedurePreload.DataTableNames)

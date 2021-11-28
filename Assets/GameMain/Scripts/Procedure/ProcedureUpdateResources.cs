@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureUpdateResources : ProcedureBase
     {
@@ -15,14 +15,6 @@ namespace StarForce
         private int m_UpdateSuccessCount = 0;
         private List<UpdateLengthData> m_UpdateLengthData = new List<UpdateLengthData>();
         private UpdateResourceForm m_UpdateResourceForm = null;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return true;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

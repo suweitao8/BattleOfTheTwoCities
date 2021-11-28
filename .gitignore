@@ -9,6 +9,9 @@
 /[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+/[Aa]ssetBundle/
+/[Dd]ebug/
+/.idea/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -57,4 +60,12 @@ sysinfo.txt
 
 # Crashlytics generated file
 crashlytics-build.properties
+
+*.dwlt
+ProjectSettings/AutoStreamingSettings.asset
+ProjectSettings/CommonBurstAotSettings.json
+ProjectSettings/UnityConnectSettings.asset
+UserSettings/Search.settings
+UserSettings/EditorUserSettings.asset
+ProjectSettings/ProjectVersion.txt
 

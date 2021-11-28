@@ -9,7 +9,7 @@ using GameFramework.DataTable;
 using System;
 using UnityGameFramework.Runtime;
 
-namespace StarForce
+namespace GameMain
 {
     public static class EntityExtension
     {
@@ -34,10 +34,18 @@ namespace StarForce
         {
             entityComponent.HideEntity(entity.Entity);
         }
-
+        
         public static void AttachEntity(this EntityComponent entityComponent, Entity entity, int ownerId, string parentTransformPath = null, object userData = null)
         {
             entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
+        }
+
+        /// <summary>
+        /// 玩家
+        /// </summary>
+        public static void ShowPlayerEntity(this EntityComponent entityComponent, PlayerEntityData data)
+        {
+            entityComponent.ShowEntity(typeof(PlayerEntity), "Player", 100, data);
         }
 
         public static void ShowMyAircraft(this EntityComponent entityComponent, MyAircraftData data)

@@ -10,23 +10,12 @@ using GameFramework.Event;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureChangeScene : ProcedureBase
     {
-        private const int MenuSceneId = 1;
-
-        private bool m_ChangeToMenu = false;
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return false;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -58,7 +47,6 @@ namespace StarForce
             GameEntry.Base.ResetNormalGameSpeed();
 
             int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
-            m_ChangeToMenu = sceneId == MenuSceneId;
             IDataTable<DRScene> dtScene = GameEntry.DataTable.GetDataTable<DRScene>();
             DRScene drScene = dtScene.GetDataRow(sceneId);
             if (drScene == null)
@@ -90,13 +78,17 @@ namespace StarForce
                 return;
             }
 
-            if (m_ChangeToMenu)
+            int sceneId = procedureOwner.GetData<VarInt32>("NextSceneId");
+            switch (sceneId)
             {
-                ChangeState<ProcedureMenu>(procedureOwner);
-            }
-            else
-            {
-                ChangeState<ProcedureMain>(procedureOwner);
+                // Menu
+                case 1:
+                    ChangeState<ProcedureMenu>(procedureOwner);
+                    break;
+                // Level Select
+                case 2:
+                    ChangeState<ProcedureLevelSelect>(procedureOwner);
+                    break;
             }
         }
 

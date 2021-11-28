@@ -38,6 +38,15 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Test_Background
+    uniqueID: 1934962525
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Test_Platform
+    uniqueID: 3109927703
+    locked: 0
+  - name: Shadow
+    uniqueID: 3271004703
     locked: 0

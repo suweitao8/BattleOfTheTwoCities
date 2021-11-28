@@ -9,12 +9,13 @@ using GameFramework;
 using GameFramework.Event;
 using GameFramework.Resource;
 using System.Collections.Generic;
+using GameFramework.Localization;
 using TMPro;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedurePreload : ProcedureBase
     {
@@ -26,17 +27,10 @@ namespace StarForce
             "Sound",
             "UIForm",
             "UISound",
+            "Character"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return true;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {

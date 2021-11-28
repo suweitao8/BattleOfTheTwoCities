@@ -109,43 +109,16 @@
             "id": "3db2f880-4b5b-4ea4-8449-3afaf78043de",
             "actions": [
                 {
-                    "name": "Left",
-                    "type": "Button",
+                    "name": "Move",
+                    "type": "PassThrough",
                     "id": "1e1ca708-ff27-4069-bea3-73bc278cf2da",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "Right",
-                    "type": "Button",
-                    "id": "8bd47072-2342-41ae-a789-8f5215cbbf25",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Up",
-                    "type": "Button",
-                    "id": "f8eae1a6-a3ed-409d-8f10-ca88182b6945",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Down",
-                    "type": "Button",
-                    "id": "1e1d4097-3cde-4c52-85fa-64d3840670ed",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Confirm",
+                    "name": "Submit",
                     "type": "Button",
                     "id": "e8236fe9-db80-47d2-b305-e634596db49a",
                     "expectedControlType": "Button",
@@ -167,44 +140,11 @@
                 {
                     "name": "",
                     "id": "563d25c1-2344-4d0e-830f-e28eff46fd4f",
-                    "path": "<Gamepad>/leftStick/left",
+                    "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Left",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c9f0c6dd-1876-4b9e-9539-240d4f71545b",
-                    "path": "<Gamepad>/leftStick/right",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Right",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "ad917f3a-2cfb-4615-8966-0bb567915ca7",
-                    "path": "<Gamepad>/leftStick/up",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Up",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "251f4ff9-a512-479b-8033-f9296b1695b7",
-                    "path": "<Gamepad>/leftStick/down",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Down",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -215,7 +155,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Confirm",
+                    "action": "Submit",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

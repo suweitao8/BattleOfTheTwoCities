@@ -8,19 +8,11 @@
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureInitResources : ProcedureBase
     {
         private bool m_InitResourcesComplete = false;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return true;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -29,6 +21,7 @@ namespace StarForce
             m_InitResourcesComplete = false;
 
             // 注意：使用单机模式并初始化资源前，需要先构建 AssetBundle 并复制到 StreamingAssets 中，否则会产生 HTTP 404 错误
+            // suweitao8：好的，收到！！！
             GameEntry.Resource.InitResources(OnInitResourcesComplete);
         }
 

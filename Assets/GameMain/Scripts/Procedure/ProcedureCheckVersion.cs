@@ -12,21 +12,13 @@ using UnityEngine;
 using UnityGameFramework.Runtime;
 using ProcedureOwner = GameFramework.Fsm.IFsm<GameFramework.Procedure.IProcedureManager>;
 
-namespace StarForce
+namespace GameMain
 {
     public class ProcedureCheckVersion : ProcedureBase
     {
         private bool m_CheckVersionComplete = false;
         private bool m_NeedUpdateVersion = false;
         private VersionInfo m_VersionInfo = null;
-
-        public override bool UseNativeDialog
-        {
-            get
-            {
-                return true;
-            }
-        }
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
