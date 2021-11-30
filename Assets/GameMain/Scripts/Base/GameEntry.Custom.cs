@@ -31,12 +31,19 @@ namespace GameMain
             get;
             private set;
         }
+
+        public static LayerComponent Layer
+        {
+            get;
+            private set;
+        }
         
         private static void InitCustomComponents()
         {
             BuiltinData = UnityGameFramework.Runtime.GameEntry.GetComponent<BuiltinDataComponent>();
             PlayerInput = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerInputComponent>();
             FocusElement = UnityGameFramework.Runtime.GameEntry.GetComponent<FocusElementComponent>();
+            Layer = UnityGameFramework.Runtime.GameEntry.GetComponent<LayerComponent>();
         }
     }
 }

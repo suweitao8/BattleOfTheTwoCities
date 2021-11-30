@@ -1,10 +1,19 @@
 ﻿using GameFramework.Fsm;
+using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
     public class PlayerMovementState : FsmState<PlayerEntity>
     {
+        private PlayerEntity m_Player;
+
+        protected override void OnInit(IFsm<PlayerEntity> fsm)
+        {
+            base.OnInit(fsm);
+            m_Player = fsm.Owner;
+        }
+
         protected override void OnEnter(IFsm<PlayerEntity> fsm)
         {
             base.OnEnter(fsm);
@@ -19,7 +28,15 @@ namespace GameMain
         protected override void OnUpdate(IFsm<PlayerEntity> fsm, float elapseSeconds, float realElapseSeconds)
         {
             base.OnUpdate(fsm, elapseSeconds, realElapseSeconds);
-            fsm.Owner.GroundMovement();
+            
+            // 地面移动
+            m_Player.GroundMovement();
+            // 更新朝向
+            m_Player.UpdateFace();
+            // 跳跃
+            m_Player.Jump();
+            // 悬挂
+            m_Player.Hang();
         }
     }
 }

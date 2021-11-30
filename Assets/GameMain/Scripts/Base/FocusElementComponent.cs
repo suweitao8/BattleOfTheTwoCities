@@ -62,6 +62,7 @@ namespace GameMain
         /// </summary>
         private void UpdateFocusElement()
         {
+            if (CurrentFocusElement == null || CurrentFocusElement.IsDestroyed()) return;
             if (Time.time - m_LastUpdateFocusElementTime < updateFocusElementInterval) return;
                 
             Vector2 movement = GameEntry.PlayerInput.UIMovement;

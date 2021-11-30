@@ -44,6 +44,87 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press(behavior=2)"",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Jump"",
+                    ""type"": ""Button"",
+                    ""id"": ""9cafd392-92bb-4755-969b-1a6eeb15ce68"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Melee"",
+                    ""type"": ""Button"",
+                    ""id"": ""ed801e69-1957-431f-aba4-93dae6921d91"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Boom"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f5fac42-48b4-4a95-9a3f-24fb98e21599"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press(behavior=2)"",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Start"",
+                    ""type"": ""Button"",
+                    ""id"": ""735b90b2-465f-490b-9b52-b102cdbfbf20"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Back"",
+                    ""type"": ""Button"",
+                    ""id"": ""a0755a29-ac65-4fb7-b369-86d927851a44"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LT"",
+                    ""type"": ""Button"",
+                    ""id"": ""91ef6f30-82da-4d99-851e-6ccf8d54b673"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LB"",
+                    ""type"": ""Button"",
+                    ""id"": ""c54d13ef-e5b8-487c-a88b-cd3172403559"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RT"",
+                    ""type"": ""Button"",
+                    ""id"": ""350224a3-3c27-4f09-8b9e-afb2a269e462"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""RB"",
+                    ""type"": ""Button"",
+                    ""id"": ""06938435-c71f-456b-a65d-c6aad2dda507"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -121,6 +202,105 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d9ea079e-be14-4fac-a1e8-18e96908ea64"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d0f8377c-e9aa-4974-9d98-04521664ab8c"",
+                    ""path"": ""<Gamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Melee"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f13cd227-9560-403c-b6fe-376252e1f7bc"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Boom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6531a9a2-74bc-431a-bec2-bc724ec90720"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Start"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88c9317f-c4ab-4318-8eec-cbd45b8708f2"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Back"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d625764d-65a9-4ff3-886d-05a3bb1f82ef"",
+                    ""path"": ""<Gamepad>/leftTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""83079290-64e4-43f3-a676-3b2672c766c5"",
+                    ""path"": ""<Gamepad>/leftShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LB"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""88914918-ddb9-47d4-841c-f3a42689b473"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RT"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""379c6873-85c1-41cd-85f8-3ee2f13b0bc8"",
+                    ""path"": ""<Gamepad>/rightShoulder"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""RB"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -201,6 +381,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
         m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
         m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
+        m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+        m_Game_Melee = m_Game.FindAction("Melee", throwIfNotFound: true);
+        m_Game_Boom = m_Game.FindAction("Boom", throwIfNotFound: true);
+        m_Game_Start = m_Game.FindAction("Start", throwIfNotFound: true);
+        m_Game_Back = m_Game.FindAction("Back", throwIfNotFound: true);
+        m_Game_LT = m_Game.FindAction("LT", throwIfNotFound: true);
+        m_Game_LB = m_Game.FindAction("LB", throwIfNotFound: true);
+        m_Game_RT = m_Game.FindAction("RT", throwIfNotFound: true);
+        m_Game_RB = m_Game.FindAction("RB", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Move = m_UI.FindAction("Move", throwIfNotFound: true);
@@ -267,12 +456,30 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private IGameActions m_GameActionsCallbackInterface;
     private readonly InputAction m_Game_Move;
     private readonly InputAction m_Game_Shoot;
+    private readonly InputAction m_Game_Jump;
+    private readonly InputAction m_Game_Melee;
+    private readonly InputAction m_Game_Boom;
+    private readonly InputAction m_Game_Start;
+    private readonly InputAction m_Game_Back;
+    private readonly InputAction m_Game_LT;
+    private readonly InputAction m_Game_LB;
+    private readonly InputAction m_Game_RT;
+    private readonly InputAction m_Game_RB;
     public struct GameActions
     {
         private @PlayerInputActions m_Wrapper;
         public GameActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Game_Move;
         public InputAction @Shoot => m_Wrapper.m_Game_Shoot;
+        public InputAction @Jump => m_Wrapper.m_Game_Jump;
+        public InputAction @Melee => m_Wrapper.m_Game_Melee;
+        public InputAction @Boom => m_Wrapper.m_Game_Boom;
+        public InputAction @Start => m_Wrapper.m_Game_Start;
+        public InputAction @Back => m_Wrapper.m_Game_Back;
+        public InputAction @LT => m_Wrapper.m_Game_LT;
+        public InputAction @LB => m_Wrapper.m_Game_LB;
+        public InputAction @RT => m_Wrapper.m_Game_RT;
+        public InputAction @RB => m_Wrapper.m_Game_RB;
         public InputActionMap Get() { return m_Wrapper.m_Game; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -288,6 +495,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Shoot.started -= m_Wrapper.m_GameActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnShoot;
+                @Jump.started -= m_Wrapper.m_GameActionsCallbackInterface.OnJump;
+                @Jump.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnJump;
+                @Jump.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnJump;
+                @Melee.started -= m_Wrapper.m_GameActionsCallbackInterface.OnMelee;
+                @Melee.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnMelee;
+                @Melee.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnMelee;
+                @Boom.started -= m_Wrapper.m_GameActionsCallbackInterface.OnBoom;
+                @Boom.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnBoom;
+                @Boom.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnBoom;
+                @Start.started -= m_Wrapper.m_GameActionsCallbackInterface.OnStart;
+                @Start.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnStart;
+                @Start.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnStart;
+                @Back.started -= m_Wrapper.m_GameActionsCallbackInterface.OnBack;
+                @Back.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnBack;
+                @Back.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnBack;
+                @LT.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
+                @LT.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
+                @LT.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLT;
+                @LB.started -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @LB.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @LB.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnLB;
+                @RT.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @RT.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @RT.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRT;
+                @RB.started -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
+                @RB.performed -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
+                @RB.canceled -= m_Wrapper.m_GameActionsCallbackInterface.OnRB;
             }
             m_Wrapper.m_GameActionsCallbackInterface = instance;
             if (instance != null)
@@ -298,6 +532,33 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Melee.started += instance.OnMelee;
+                @Melee.performed += instance.OnMelee;
+                @Melee.canceled += instance.OnMelee;
+                @Boom.started += instance.OnBoom;
+                @Boom.performed += instance.OnBoom;
+                @Boom.canceled += instance.OnBoom;
+                @Start.started += instance.OnStart;
+                @Start.performed += instance.OnStart;
+                @Start.canceled += instance.OnStart;
+                @Back.started += instance.OnBack;
+                @Back.performed += instance.OnBack;
+                @Back.canceled += instance.OnBack;
+                @LT.started += instance.OnLT;
+                @LT.performed += instance.OnLT;
+                @LT.canceled += instance.OnLT;
+                @LB.started += instance.OnLB;
+                @LB.performed += instance.OnLB;
+                @LB.canceled += instance.OnLB;
+                @RT.started += instance.OnRT;
+                @RT.performed += instance.OnRT;
+                @RT.canceled += instance.OnRT;
+                @RB.started += instance.OnRB;
+                @RB.performed += instance.OnRB;
+                @RB.canceled += instance.OnRB;
             }
         }
     }
@@ -355,6 +616,15 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
+        void OnJump(InputAction.CallbackContext context);
+        void OnMelee(InputAction.CallbackContext context);
+        void OnBoom(InputAction.CallbackContext context);
+        void OnStart(InputAction.CallbackContext context);
+        void OnBack(InputAction.CallbackContext context);
+        void OnLT(InputAction.CallbackContext context);
+        void OnLB(InputAction.CallbackContext context);
+        void OnRT(InputAction.CallbackContext context);
+        void OnRB(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {
