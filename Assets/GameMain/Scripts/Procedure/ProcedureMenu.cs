@@ -39,8 +39,12 @@ namespace GameMain
 
             if (m_MenuForm != null)
             {
-                m_MenuForm.Close(isShutdown);
+                m_MenuForm.Close();
                 m_MenuForm = null;
+            }
+            else
+            {
+                Log.Info($"菜单面板为空");
             }
         }
 

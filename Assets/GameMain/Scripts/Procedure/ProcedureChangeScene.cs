@@ -16,6 +16,7 @@ namespace GameMain
     {
         private bool m_IsChangeSceneComplete = false;
         private int m_BackgroundMusicId = 0;
+        private ChangeSceneForm m_ChangeSceneForm = null;
 
         protected override void OnEnter(ProcedureOwner procedureOwner)
         {
@@ -27,6 +28,10 @@ namespace GameMain
             GameEntry.Event.Subscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
             GameEntry.Event.Subscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
             GameEntry.Event.Subscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
+            GameEntry.Event.Subscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+            
+            // Open ChangeSceneForm
+            GameEntry.UI.OpenUIForm(UIFormId.ChangeSceneForm, this);
 
             // 停止所有声音
             GameEntry.Sound.StopAllLoadingSounds();
@@ -54,6 +59,14 @@ namespace GameMain
                 Log.Warning("Can not load scene '{0}' from data table.", sceneId.ToString());
                 return;
             }
+            
+            // 相机设置
+            IDataTable<DRCameraSetting> dtCameraSetting = GameEntry.DataTable.GetDataTable<DRCameraSetting>();
+            DRCameraSetting drCameraSetting = dtCameraSetting.GetDataRow(sceneId);
+            GameEntry.Camera.SetCameraMovableRange(drCameraSetting.MinX, 
+                drCameraSetting.MaxX,
+                drCameraSetting.MinY,
+                drCameraSetting.BorderSize);
 
             GameEntry.Scene.LoadScene(AssetUtility.GetSceneAsset(drScene.AssetName), Constant.AssetPriority.SceneAsset, this);
             m_BackgroundMusicId = drScene.BackgroundMusicId;
@@ -65,6 +78,14 @@ namespace GameMain
             GameEntry.Event.Unsubscribe(LoadSceneFailureEventArgs.EventId, OnLoadSceneFailure);
             GameEntry.Event.Unsubscribe(LoadSceneUpdateEventArgs.EventId, OnLoadSceneUpdate);
             GameEntry.Event.Unsubscribe(LoadSceneDependencyAssetEventArgs.EventId, OnLoadSceneDependencyAsset);
+            GameEntry.Event.Unsubscribe(OpenUIFormSuccessEventArgs.EventId, OnOpenUIFormSuccess);
+            
+            // Close ChangeSceneForm
+            if (m_ChangeSceneForm != null)
+            {
+                m_ChangeSceneForm.Close();
+                m_ChangeSceneForm = null;
+            }
 
             base.OnLeave(procedureOwner, isShutdown);
         }
@@ -129,6 +150,11 @@ namespace GameMain
                 return;
             }
 
+            if (m_ChangeSceneForm != null)
+            {
+                m_ChangeSceneForm.SetProcess(ne.Progress);
+            }
+
             Log.Info("Load scene '{0}' update, progress '{1}'.", ne.SceneAssetName, ne.Progress.ToString("P2"));
         }
 
@@ -141,6 +167,17 @@ namespace GameMain
             }
 
             Log.Info("Load scene '{0}' dependency asset '{1}', count '{2}/{3}'.", ne.SceneAssetName, ne.DependencyAssetName, ne.LoadedCount.ToString(), ne.TotalCount.ToString());
+        }
+        
+        private void OnOpenUIFormSuccess(object sender, GameEventArgs e)
+        {
+            OpenUIFormSuccessEventArgs ne = (OpenUIFormSuccessEventArgs)e;
+            if (ne.UserData != this)
+            {
+                return;
+            }
+
+            m_ChangeSceneForm = (ChangeSceneForm)ne.UIForm.Logic;
         }
     }
 }

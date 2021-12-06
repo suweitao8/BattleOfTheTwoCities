@@ -32,6 +32,12 @@ namespace GameMain
             public const int BulletAsset = 80;
             public const int AsteroiAsset = 80;
             public const int EffectAsset = 80;
+
+            public const int Least = 0;
+            public const int Low = 30;
+            public const int Middle = 50;
+            public const int High = 70;
+            public const int Most = 100;
         }
     }
 }

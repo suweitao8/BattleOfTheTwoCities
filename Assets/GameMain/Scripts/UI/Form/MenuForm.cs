@@ -40,6 +40,23 @@ namespace GameMain
         public void OnBtnAuthorClicked()
         {
             GameEntry.UI.OpenUIForm(UIFormId.AuthorForm);
+            
+            // TODO Test
+            if (GameEntry.PlayerInput[0] != null)
+            {
+                GameEntry.PlayerInput[0].OnShoot = () =>
+                {
+                    GameEntry.PlayerInput[0].TriggerShake(GamepadShakeType.Low);
+                };
+                GameEntry.PlayerInput[0].OnMelee = () =>
+                {
+                    GameEntry.PlayerInput[0].TriggerShake(GamepadShakeType.Middle);
+                };
+                GameEntry.PlayerInput[0].OnBoom = () =>
+                {
+                    GameEntry.PlayerInput[0].TriggerShake(GamepadShakeType.High);
+                };
+            }
         }
 
         public void OnBtnQuitGameClicked()

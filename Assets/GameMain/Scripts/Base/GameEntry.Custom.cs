@@ -37,6 +37,18 @@ namespace GameMain
             get;
             private set;
         }
+
+        public static TilemapComponent Tilemap
+        {
+            get;
+            private set;
+        }
+
+        public static CameraComponent Camera
+        {
+            get;
+            private set;
+        }
         
         private static void InitCustomComponents()
         {
@@ -44,6 +56,8 @@ namespace GameMain
             PlayerInput = UnityGameFramework.Runtime.GameEntry.GetComponent<PlayerInputComponent>();
             FocusElement = UnityGameFramework.Runtime.GameEntry.GetComponent<FocusElementComponent>();
             Layer = UnityGameFramework.Runtime.GameEntry.GetComponent<LayerComponent>();
+            Tilemap = UnityGameFramework.Runtime.GameEntry.GetComponent<TilemapComponent>();
+            Camera = UnityGameFramework.Runtime.GameEntry.GetComponent<CameraComponent>();
         }
     }
 }

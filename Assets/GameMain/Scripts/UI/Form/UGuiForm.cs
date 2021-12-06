@@ -17,10 +17,8 @@ namespace GameMain
     public abstract class UGuiForm : UIFormLogic
     {
         public const int DepthFactor = 100;
-        private const float FadeTime = 0.3f;
+        // private const float FadeTime = 0.3f;
         public static TMP_FontAsset s_MainFont = null;
-
-        public FocusElement focusElement;
 
         private Canvas m_CachedCanvas = null;
         private CanvasGroup m_CanvasGroup = null;
@@ -42,22 +40,23 @@ namespace GameMain
 
         public void Close()
         {
-            Close(false);
-        }
-
-        public void Close(bool ignoreFade)
-        {
             StopAllCoroutines();
-
-            if (ignoreFade)
-            {
-                GameEntry.UI.CloseUIForm(this);
-            }
-            else
-            {
-                StartCoroutine(CloseCo(FadeTime));
-            }
+            GameEntry.UI.CloseUIForm(this);
+            // Close(false);
         }
+
+        // public void Close(bool ignoreFade)
+        // {
+        //
+        //     if (ignoreFade)
+        //     {
+        //         GameEntry.UI.CloseUIForm(this);
+        //     }
+        //     else
+        //     {
+        //         // StartCoroutine(CloseCo(FadeTime));
+        //     }
+        // }
 
         public void PlayUISound(int uiSoundId)
         {
@@ -115,12 +114,12 @@ namespace GameMain
         {
             base.OnOpen(userData);
 
-            m_CanvasGroup.alpha = 0f;
+            // m_CanvasGroup.alpha = 0f;
             StopAllCoroutines();
-            StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            // StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
             
             // 初始化选中对象
-            SetFocusElement(focusElement);
+            // SetFocusElement(focusElement);
             
             // 统一设置字体
             TextMeshProUGUI[] texts = GetComponentsInChildren<TextMeshProUGUI>(true);
@@ -156,9 +155,9 @@ namespace GameMain
         {
             base.OnResume();
 
-            m_CanvasGroup.alpha = 0f;
+            // m_CanvasGroup.alpha = 0f;
             StopAllCoroutines();
-            StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
+            // StartCoroutine(m_CanvasGroup.FadeToAlpha(1f, FadeTime));
         }
 
 #if UNITY_2017_3_OR_NEWER
@@ -217,7 +216,8 @@ namespace GameMain
 
         private IEnumerator CloseCo(float duration)
         {
-            yield return m_CanvasGroup.FadeToAlpha(0f, duration);
+            // yield return m_CanvasGroup.FadeToAlpha(0f, duration);
+            yield break;
             GameEntry.UI.CloseUIForm(this);
         }
 

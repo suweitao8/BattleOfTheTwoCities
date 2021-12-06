@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Tilemap
+  - TileBox
   layers:
   - Default
   - TransparentFX
@@ -14,6 +16,7 @@ TagManager:
   - Player
   - Platform
   - Enemy
+  - Prop
   - 
   - 
   - 
@@ -35,8 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Camera
   m_SortingLayers:
   - name: Test_Background
     uniqueID: 1934962525
@@ -49,4 +51,13 @@ TagManager:
     locked: 0
   - name: Shadow
     uniqueID: 3271004703
+    locked: 0
+  - name: Player
+    uniqueID: 2567779583
+    locked: 0
+  - name: Prop
+    uniqueID: 754190681
+    locked: 0
+  - name: Test_FollowTarget
+    uniqueID: 2729499389
     locked: 0

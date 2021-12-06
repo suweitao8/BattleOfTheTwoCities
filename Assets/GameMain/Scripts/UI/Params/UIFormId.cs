@@ -32,7 +32,7 @@ namespace GameMain
         /// <summary>
         /// 关于。
         /// </summary>
-        AboutForm = 102,
+        ChangeSceneForm = 102,
         
         /// <summary>
         /// 作者

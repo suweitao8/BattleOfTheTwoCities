@@ -35,30 +35,6 @@ namespace GameMain
         private GameFrameworkAction<object> m_OnClickCancel = null;
         private GameFrameworkAction<object> m_OnClickOther = null;
 
-        public int DialogMode
-        {
-            get
-            {
-                return m_DialogMode;
-            }
-        }
-
-        public bool PauseGame
-        {
-            get
-            {
-                return m_PauseGame;
-            }
-        }
-
-        public object UserData
-        {
-            get
-            {
-                return m_UserData;
-            }
-        }
-
         public void OnConfirmButtonClick()
         {
             Close();

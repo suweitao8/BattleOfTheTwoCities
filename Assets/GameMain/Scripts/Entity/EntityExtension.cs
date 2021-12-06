@@ -40,12 +40,22 @@ namespace GameMain
             entityComponent.AttachEntity(entity.Entity, ownerId, parentTransformPath, userData);
         }
 
+        #region Show Entity
+
+        /// <summary>
+        /// 地图方块
+        /// </summary>
+        public static void ShowTileBoxEntity(this EntityComponent entityComponent, TileBoxEntityData data)
+        {
+            entityComponent.ShowEntity(typeof(TileBoxEntity), Constant.EntityGroup.TileBox, Constant.AssetPriority.Low, data);
+        }
+        
         /// <summary>
         /// 玩家
         /// </summary>
         public static void ShowPlayerEntity(this EntityComponent entityComponent, PlayerEntityData data)
         {
-            entityComponent.ShowEntity(typeof(PlayerEntity), "Player", 100, data);
+            entityComponent.ShowEntity(typeof(PlayerEntity), Constant.EntityGroup.Player, Constant.AssetPriority.Most, data);
         }
 
         public static void ShowMyAircraft(this EntityComponent entityComponent, MyAircraftData data)
@@ -87,6 +97,8 @@ namespace GameMain
         {
             entityComponent.ShowEntity(typeof(Effect), "Effect", Constant.AssetPriority.EffectAsset, data);
         }
+        
+        #endregion
 
         private static void ShowEntity(this EntityComponent entityComponent, Type logicType, string entityGroup, int priority, EntityData data)
         {

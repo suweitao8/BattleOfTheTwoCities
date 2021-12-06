@@ -1,4 +1,5 @@
-﻿using GameFramework.DataTable;
+﻿using System;
+using GameFramework.DataTable;
 using GameFramework.Fsm;
 using UnityEngine;
 using UnityEngine.Timeline;
@@ -17,9 +18,11 @@ namespace GameMain
         /// <summary>
         /// 所有角色统一的参数
         /// </summary>
-        private float jumpInterval = 0.5f;
-
-        private float jumpForce = 6f;
+        public float jumpForce = 10f;
+        public float jumpInterval = 0.5f;
+        public float shootInterval = 0.5f;
+        public float meleeInterval = 0.5f;
+        public float boomInterval = 0.5f;
 
         /// <summary>
         /// Config
@@ -36,6 +39,9 @@ namespace GameMain
         [HideInInspector] public CapsuleCollider2D capsuleCollider;
 
         private float m_LastJumpTime = 0f;
+        private float m_LastShootTime = 0f;
+        private float m_LastMeleeTime = 0f;
+        private float m_LastBoomTime = 0f;
 
         protected override void OnInit(object userData)
         {
@@ -62,6 +68,7 @@ namespace GameMain
             DRCharacter drCharacter = dtCharacter.GetDataRow(m_PlayerEntityData.CharacterId);
             walkSpeed = drCharacter.WalkSpeed;
             crouchSpeed = drCharacter.CrouchSpeed;
+            transform.position = Vector3.zero;
 
             // 状态机
             m_FSM = GameEntry.Fsm.CreateFsm(this
@@ -82,6 +89,45 @@ namespace GameMain
             base.OnUpdate(elapseSeconds, realElapseSeconds);
             CheckPhysics();
             UpdateIsHandPlatform();
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            // 拾取地图方块
+            if (other.gameObject.CompareTag(Constant.Tag.TileBox))
+            {
+                TileBoxEntity tileBoxEntity = other.gameObject.GetComponent<TileBoxEntity>();
+                Log.Debug($"拾取到了：{tileBoxEntity.Data.Tile.name}");
+                GameEntry.Entity.HideEntity(tileBoxEntity);
+                // TODO 放置到仓库
+            }
+        }
+
+        /// <summary>
+        /// 射击
+        /// </summary>
+        public void Shoot()
+        {
+            if (Time.time - m_LastShootTime < shootInterval) return;
+            if (m_PlayerInputHandle.IsShoot == false) return;
+            m_LastShootTime = Time.time;
+            
+            Vector2 pos = transform.position;
+            float face = transform.localScale.x;
+            Vector2 faceDir = Vector2.right * face;
+            RaycastHit2D shootHit =
+                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (capsuleCollider.size.y / 2f)
+                    , faceDir
+                    , 10f
+                    , GameEntry.Layer.groundLayer);
+            if (shootHit)
+            {
+                // Log.Info($"目标是：{shootHit.collider.name}, 打在：{shootHit.point}");
+                if (shootHit.collider.CompareTag(Constant.Tag.Tilemap))
+                {
+                    GameEntry.Tilemap.AttackTile(shootHit.collider.gameObject, shootHit.point - shootHit.normal * 0.5f);
+                }
+            }
         }
 
         /// <summary>
@@ -219,14 +265,14 @@ namespace GameMain
             float face = transform.localScale.x;
             Vector2 faceDir = Vector2.right * face;
             RaycastHit2D hangUpHit =
-                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * height
+                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (height / 2f + 0.2f)
                     , faceDir
-                    , 0.2f
+                    , 0.1f
                     , GameEntry.Layer.groundLayer);
             RaycastHit2D hangDownHit =
-                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (height - 0.4f)
+                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (height / 2f - 0.2f)
                     , faceDir
-                    , 0.2f
+                    , 0.1f
                     , GameEntry.Layer.groundLayer);
             if (hangUpHit || hangDownHit)
             {

@@ -37,6 +37,8 @@ namespace GameMain
             m_Player.Jump();
             // 悬挂
             m_Player.Hang();
+            // 射击
+            m_Player.Shoot();
         }
     }
 }

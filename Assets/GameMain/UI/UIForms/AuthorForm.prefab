@@ -62,7 +62,7 @@ Canvas:
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
-  m_PixelPerfect: 0
+  m_PixelPerfect: 1
   m_ReceivesEvents: 1
   m_OverrideSorting: 1
   m_OverridePixelPerfect: 0
@@ -83,7 +83,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d18eec7c2f2d3d4ca59e310ef625db1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  focusElement: {fileID: 6587156973510027141}
   m_Content: {fileID: 5614027973118007154}
   m_TargetAnchorY: 800
   m_TweenSpeed: 80
@@ -154,7 +153,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game.Name
+  m_text: Battle Of TheTwo Cities
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
   m_sharedMaterial: {fileID: -2829983522834001929, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game.Email
+  m_text: suweitao8@gmail.com
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
   m_sharedMaterial: {fileID: -2829983522834001929, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
@@ -452,7 +451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game.Description
+  m_text: The Game Is Very Good
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
   m_sharedMaterial: {fileID: -2829983522834001929, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
@@ -625,6 +624,7 @@ MonoBehaviour:
     m_DisabledTrigger: Disabled
   m_Interactable: 1
   m_TargetGraphic: {fileID: 0}
+  priority: 0
   selectSoundId: -1
   clickSoundId: -1
   onSelecte:
@@ -715,7 +715,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game.Introduction
+  m_text: You just can use gamepad.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
   m_sharedMaterial: {fileID: -2829983522834001929, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
@@ -1121,7 +1121,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Game.Summary
+  m_text: So, What you name?
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}
   m_sharedMaterial: {fileID: -2829983522834001929, guid: 06f39dc8065dede469bf8dc8643a0fee, type: 2}

@@ -27,7 +27,8 @@ namespace GameMain
             "Sound",
             "UIForm",
             "UISound",
-            "Character"
+            "Character",
+            "CameraSetting"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();
@@ -73,7 +74,7 @@ namespace GameMain
             }
             
             // 把 Launcher 场景的相机删掉，该相机可能用于 Splash 场景的播放
-            GameObject.Destroy(Camera.main.gameObject);
+            // GameObject.Destroy(Camera.main.gameObject);
 
             procedureOwner.SetData<VarInt32>("NextSceneId", GameEntry.Config.GetInt("Scene.Menu"));
             ChangeState<ProcedureChangeScene>(procedureOwner);

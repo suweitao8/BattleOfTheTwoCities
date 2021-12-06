@@ -68,4 +68,5 @@ ProjectSettings/UnityConnectSettings.asset
 UserSettings/Search.settings
 UserSettings/EditorUserSettings.asset
 ProjectSettings/ProjectVersion.txt
-
+/Assets/Samples/
+/Assets/StreamingAsset/

@@ -52,10 +52,12 @@ namespace GameMain
 
         private void OnEnable()
         {
-            if (UpdateFocusChildAndReturn() == false)
-            {
-                FocusByIndex(RectTransform.childCount / 2, true);
-            }
+            UpdateFocusChildAndReturn();
+        }
+
+        void FocusToCenter()
+        {
+            FocusByIndex(RectTransform.childCount / 2, true);
         }
 
         /// <summary>

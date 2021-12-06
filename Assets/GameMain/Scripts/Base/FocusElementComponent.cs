@@ -18,6 +18,7 @@ namespace GameMain
             get => m_CurrentFocusElement;
             private set => m_CurrentFocusElement = value;
         }
+        public int currentPriority = 0;
 
         private float m_LastUpdateFocusElementTime;
         private List<FocusElement> m_FocusElementList = new List<FocusElement>();
@@ -30,6 +31,23 @@ namespace GameMain
         private void Update()
         {
             UpdateFocusElement();
+            CheckCurrentFocus();
+        }
+
+        /// <summary>
+        /// 注册
+        /// </summary>
+        public void RegisterFocusElement(FocusElement element)
+        {
+            m_FocusElementList.Add(element);
+        }
+
+        /// <summary>
+        /// 注销
+        /// </summary>
+        public void DeregisterFocusElement(FocusElement element)
+        {
+            m_FocusElementList.Remove(element);
         }
 
         /// <summary>
@@ -46,15 +64,30 @@ namespace GameMain
             
             // 设置当前焦点
             CurrentFocusElement = focusElement;
+            currentPriority++;
+            CurrentFocusElement.priority = currentPriority;
             CurrentFocusElement.Select();
         }
-
+        
         /// <summary>
         /// 检查当前焦点的有效性
         /// </summary>
         private void CheckCurrentFocus()
         {
-            
+            if ((CurrentFocusElement != null && CurrentFocusElement.IsDestroyed())
+                || CurrentFocusElement == null 
+                || CurrentFocusElement.gameObject.activeInHierarchy == false)
+            {
+                FocusElement maxFocus = null;
+                for (int i = 0; i < m_FocusElementList.Count; i++)
+                {
+                    if (maxFocus == null || m_FocusElementList[i].priority > maxFocus.priority)
+                    {
+                        maxFocus = m_FocusElementList[i];
+                    }
+                }
+                SetCurrentFocusElement(maxFocus);
+            }
         }
 
         /// <summary>
@@ -107,7 +140,7 @@ namespace GameMain
         private void OnSubmitClicked()
         {
             if (CurrentFocusElement == null) return;
-            CurrentFocusElement.onClick?.Invoke();
+            CurrentFocusElement.OnSubmit();
         }
     }
 }

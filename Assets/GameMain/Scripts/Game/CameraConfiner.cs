@@ -14,8 +14,7 @@ namespace GameMain
             , ref CameraState state
             , float deltaTime)
         {
-            if (stage == CinemachineCore.Stage.Body &&
-                collider != null)
+            if (collider != null)
             {
                 vcam.Follow.position = ConfineScreenEdge(vcam.Follow.position, ref state);
             }

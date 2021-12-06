@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using GameFramework;
 using GameFramework.Localization;
 using GameMain;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -12,51 +14,6 @@ using GameEntry = GameMain.GameEntry;
 
 namespace GameMain
 {
-    public class PlayerInputHandle
-    {
-        /// <summary>
-        /// 手柄索引和手柄的设备Id
-        /// </summary>
-        public int index;
-        public int deviceId;
-        
-        /// <summary>
-        /// 移动量
-        /// </summary>
-        public Vector2 Movement { get; set; }
-        /// <summary>
-        /// 按下射击
-        /// </summary>
-        public bool IsShoot { get; set; }
-        /// <summary>
-        /// 按下近战
-        /// </summary>
-        public bool IsMelee { get; set; }
-        /// <summary>
-        /// 按下炸弹
-        /// </summary>
-        public bool IsBoom { get; set; }
-        /// <summary>
-        /// 按下跳起
-        /// </summary>
-        public bool IsJump { get; set; }
-
-        public bool IsLT { get; set; }
-        public bool IsLB { get; set; }
-        public bool IsRT { get; set; }
-        public bool IsRB { get; set; }
-        
-        public bool IsStart { get; set; }
-        public bool IsBack { get; set; }
-
-        public PlayerInputHandle(int index, int deviceId)
-        {
-            this.index = index;
-            this.deviceId = deviceId;
-            Log.Info($"新玩家加入, 索引({index}, 设备({deviceId})");
-        }
-    }
-    
     public class PlayerInputComponent : GameFrameworkComponent
     {
         /// <summary>
@@ -64,10 +21,24 @@ namespace GameMain
         /// </summary>
         public List<PlayerInputHandle> playerInputHandleList = new List<PlayerInputHandle>();
 
+        public PlayerInputHandle this[int index]
+        {
+            get
+            {
+                if (index < playerInputHandleList.Count)
+                {
+                    return playerInputHandleList[index];
+                }
+
+                return null;
+            }
+        }
+
         /// <summary>
         /// UI
         /// </summary>
         public Vector2 UIMovement { get; set; }
+
         public event Action OnSubmitAction;
         public event Action OnCancelAction;
 
@@ -82,17 +53,14 @@ namespace GameMain
 
             // Game
             m_PlayerInputActions.Game.Move.performed += OnGameMove;
-            
             m_PlayerInputActions.Game.Shoot.performed += OnShoot;
             m_PlayerInputActions.Game.Jump.performed += OnJump;
             m_PlayerInputActions.Game.Melee.performed += OnMelee;
             m_PlayerInputActions.Game.Boom.performed += OnBoom;
-            
             m_PlayerInputActions.Game.LT.performed += OnLT;
             m_PlayerInputActions.Game.LB.performed += OnLB;
             m_PlayerInputActions.Game.RT.performed += OnRT;
             m_PlayerInputActions.Game.RB.performed += OnRB;
-            
             m_PlayerInputActions.Game.Start.performed += OnStart;
             m_PlayerInputActions.Game.Back.performed += OnBack;
 
@@ -100,6 +68,14 @@ namespace GameMain
             m_PlayerInputActions.UI.Move.performed += OnUIMove;
             m_PlayerInputActions.UI.Submit.performed += OnSubmit;
             m_PlayerInputActions.UI.Cancel.performed += OnCancel;
+        }
+
+        private void Update()
+        {
+            for (int i = 0; i < playerInputHandleList.Count; i++)
+            {
+                playerInputHandleList[i].OnUpdate();
+            }
         }
 
         private void OnEnable()
@@ -111,7 +87,7 @@ namespace GameMain
         {
             m_PlayerInputActions.Disable();
         }
-        
+
         /// <summary>
         /// 尝试加入一个玩家输入句柄
         /// </summary>
@@ -126,7 +102,7 @@ namespace GameMain
             }
 
             PlayerInputHandle handle = new PlayerInputHandle(playerInputHandleList.Count,
-                context.control.device.deviceId);
+                context.control.device);
             playerInputHandleList.Add(handle);
             return handle.index;
         }
@@ -149,6 +125,8 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsShoot = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsShoot == true)
+                playerInputHandleList[playerIndex].OnShoot?.Invoke();
         }
 
         /// <summary>
@@ -158,8 +136,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsJump = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsJump == true) playerInputHandleList[playerIndex].OnJump?.Invoke();
         }
-        
+
         /// <summary>
         /// 近战
         /// </summary>
@@ -167,8 +146,10 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsMelee = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsMelee == true)
+                playerInputHandleList[playerIndex].OnMelee?.Invoke();
         }
-        
+
         /// <summary>
         /// 大招
         /// </summary>
@@ -176,8 +157,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsBoom = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsBoom == true) playerInputHandleList[playerIndex].OnBoom?.Invoke();
         }
-        
+
         /// <summary>
         /// LT
         /// </summary>
@@ -185,8 +167,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsLT = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsLT == true) playerInputHandleList[playerIndex].OnLT?.Invoke();
         }
-        
+
         /// <summary>
         /// LB
         /// </summary>
@@ -194,8 +177,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsLB = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsLB == true) playerInputHandleList[playerIndex].OnLB?.Invoke();
         }
-        
+
         /// <summary>
         /// RT
         /// </summary>
@@ -203,8 +187,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsRT = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsRT == true) playerInputHandleList[playerIndex].OnRT?.Invoke();
         }
-        
+
         /// <summary>
         /// RB
         /// </summary>
@@ -212,8 +197,9 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsRB = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsRB == true) playerInputHandleList[playerIndex].OnRB?.Invoke();
         }
-        
+
         /// <summary>
         /// 开始
         /// </summary>
@@ -221,8 +207,10 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsStart = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsStart == true)
+                playerInputHandleList[playerIndex].OnStart?.Invoke();
         }
-        
+
         /// <summary>
         /// 选择按钮
         /// </summary>
@@ -230,6 +218,7 @@ namespace GameMain
         {
             int playerIndex = TryAddPlayerInputHandle(context);
             playerInputHandleList[playerIndex].IsBack = context.ReadValueAsButton();
+            if (playerInputHandleList[playerIndex].IsBack == true) playerInputHandleList[playerIndex].OnBack?.Invoke();
         }
 
         #endregion
@@ -245,7 +234,7 @@ namespace GameMain
             if (playerIndex != 0) return;
             UIMovement = context.ReadValue<Vector2>();
         }
-        
+
         private void OnSubmit(InputAction.CallbackContext context)
         {
             int playerIndex = TryAddPlayerInputHandle(context);
