@@ -1,4 +1,5 @@
 ﻿using System;
+using GameFramework;
 using GameFramework.DataTable;
 using GameFramework.Fsm;
 using UnityEngine;
@@ -68,7 +69,7 @@ namespace GameMain
             DRCharacter drCharacter = dtCharacter.GetDataRow(m_PlayerEntityData.CharacterId);
             walkSpeed = drCharacter.WalkSpeed;
             crouchSpeed = drCharacter.CrouchSpeed;
-            transform.position = Vector3.zero;
+            transform.position = new Vector3(10f, 10f);
 
             // 状态机
             m_FSM = GameEntry.Fsm.CreateFsm(this
@@ -81,6 +82,12 @@ namespace GameMain
         {
             base.OnHide(isShutdown, userData);
 
+            FsmState<PlayerEntity>[] states = m_FSM.GetAllStates();
+            for (int i = 0; i < states.Length; i++)
+            {
+                ReferencePool.Release((IReference)states[i]);
+            }
+            
             GameEntry.Fsm.DestroyFsm(m_FSM);
         }
 
@@ -125,7 +132,7 @@ namespace GameMain
                 // Log.Info($"目标是：{shootHit.collider.name}, 打在：{shootHit.point}");
                 if (shootHit.collider.CompareTag(Constant.Tag.Tilemap))
                 {
-                    GameEntry.Tilemap.AttackTile(shootHit.collider.gameObject, shootHit.point - shootHit.normal * 0.5f);
+                    GameEntry.Tilemap.AttackTile(shootHit.collider.gameObject, shootHit.point, shootHit.point - shootHit.normal * 0.5f);
                 }
             }
         }

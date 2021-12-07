@@ -1,9 +1,10 @@
-﻿using GameFramework.Fsm;
+﻿using GameFramework;
+using GameFramework.Fsm;
 using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class PlayerShootState : FsmState<PlayerEntity>
+    public class PlayerShootState : FsmState<PlayerEntity>, IReference
     {
         protected override void OnInit(IFsm<PlayerEntity> fsm)
         {
@@ -19,6 +20,15 @@ namespace GameMain
         protected override void OnLeave(IFsm<PlayerEntity> fsm, bool isShutdown)
         {
             base.OnLeave(fsm, isShutdown);
+        }
+
+        public static PlayerShootState Create()
+        {
+            return ReferencePool.Acquire<PlayerShootState>();
+        }
+        
+        public void Clear()
+        {
         }
     }
 }

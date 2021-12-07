@@ -37,7 +37,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Process: 1
+    - _Process: 0.9
     m_Colors:
     - _EndColor: {r: 0.24150053, g: 0.5998146, b: 0.764151, a: 1}
     - _StartColor: {r: 0.745283, g: 0.3058473, b: 0.72498536, a: 1}

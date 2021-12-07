@@ -13,6 +13,7 @@ namespace GameMain
         {
             public const string Player = "Player";
             public const string TileBox = "TileBox";
+            public const string VFXShot = "VFXShot";
         }
     }
 }

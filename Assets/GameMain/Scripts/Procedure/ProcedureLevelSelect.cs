@@ -45,7 +45,7 @@ namespace GameMain
         
             m_GotoMenu = false;
             // TODO 处理玩家，测试只使用一个玩家，测试使用测试参数 0
-            GameEntry.Entity.ShowPlayerEntity(new PlayerEntityData(GameEntry.Entity.GenerateSerialId(), 0, 0, 1));
+            GameEntry.Entity.ShowPlayerEntity(new PlayerEntityData(GameEntry.Entity.GenerateSerialId(), 1001, 0, 1));
         }
         //
         // protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)

@@ -1,10 +1,11 @@
-﻿using GameFramework.Fsm;
+﻿using GameFramework;
+using GameFramework.Fsm;
 using UnityEngine;
 using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
-    public class PlayerMovementState : FsmState<PlayerEntity>
+    public class PlayerMovementState : FsmState<PlayerEntity>, IReference
     {
         private PlayerEntity m_Player;
 
@@ -39,6 +40,15 @@ namespace GameMain
             m_Player.Hang();
             // 射击
             m_Player.Shoot();
+        }
+
+        public static PlayerMovementState Create()
+        {
+            return ReferencePool.Acquire<PlayerMovementState>();
+        }
+
+        public void Clear()
+        {
         }
     }
 }

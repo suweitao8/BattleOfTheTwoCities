@@ -41,18 +41,17 @@ namespace GameMain
         }
 
         #region Show Entity
+        
+        public static void ShowVFXShotEntity(this EntityComponent entityComponent, VFXShotEntityData data)
+        {
+            entityComponent.ShowEntity(typeof(VFXShotEntity), Constant.EntityGroup.VFXShot, Constant.AssetPriority.Low, data);
+        }
 
-        /// <summary>
-        /// 地图方块
-        /// </summary>
         public static void ShowTileBoxEntity(this EntityComponent entityComponent, TileBoxEntityData data)
         {
             entityComponent.ShowEntity(typeof(TileBoxEntity), Constant.EntityGroup.TileBox, Constant.AssetPriority.Low, data);
         }
         
-        /// <summary>
-        /// 玩家
-        /// </summary>
         public static void ShowPlayerEntity(this EntityComponent entityComponent, PlayerEntityData data)
         {
             entityComponent.ShowEntity(typeof(PlayerEntity), Constant.EntityGroup.Player, Constant.AssetPriority.Most, data);

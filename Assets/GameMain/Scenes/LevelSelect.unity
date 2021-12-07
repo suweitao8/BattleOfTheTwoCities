@@ -398,6 +398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2081adefd46b4031af73779f14e6af00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruleTile: {fileID: 0}
+  tileDataList: []
 --- !u!1 &799051468
 GameObject:
   m_ObjectHideFlags: 0
@@ -691,6 +693,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2081adefd46b4031af73779f14e6af00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruleTile: {fileID: 0}
+  tileDataList: []
 --- !u!1 &1522367579
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,6 +934,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2081adefd46b4031af73779f14e6af00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruleTile: {fileID: 0}
+  tileDataList: []
 --- !u!1 &1835850439
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,3 +3751,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2081adefd46b4031af73779f14e6af00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ruleTile: {fileID: 11400000, guid: 5b972a47c4a98444288ecc8072f696a9, type: 2}
+  tileDataList: []
