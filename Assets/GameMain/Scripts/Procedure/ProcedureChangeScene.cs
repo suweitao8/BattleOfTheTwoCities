@@ -63,6 +63,7 @@ namespace GameMain
             // 相机设置
             IDataTable<DRCameraSetting> dtCameraSetting = GameEntry.DataTable.GetDataTable<DRCameraSetting>();
             DRCameraSetting drCameraSetting = dtCameraSetting.GetDataRow(sceneId);
+            GameEntry.Camera.ClearTargetGroup();
             GameEntry.Camera.SetCameraMovableRange(drCameraSetting.MinX, 
                 drCameraSetting.MaxX,
                 drCameraSetting.MinY,

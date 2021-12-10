@@ -78,9 +78,14 @@ namespace GameMain
             float right = minX;
             float down = MAX_Y;
             float up = minY;
-            foreach (var target in targetList)
+            for (int i = targetList.Count - 1; i >= 0; i--)
             {
-                if (target.transform == null) return;
+                CameraFollowTarget target = targetList[i];
+                if (target == null)
+                {
+                    targetList.RemoveAt(i);
+                    continue;
+                }
                 left = Mathf.Min(left, target.transform.position.x - target.radius);
                 right = Mathf.Max(right, target.transform.position.x + target.radius);
                 down = Mathf.Min(down, target.transform.position.y - target.radius);

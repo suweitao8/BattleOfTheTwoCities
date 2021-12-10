@@ -37,6 +37,11 @@ namespace GameMain
         /// <summary>
         /// 作者
         /// </summary>
-        AuthorForm = 103
+        AuthorForm = 103,
+        
+        /// <summary>
+        /// 关卡面板
+        /// </summary>
+        LevelForm = 104,
     }
 }

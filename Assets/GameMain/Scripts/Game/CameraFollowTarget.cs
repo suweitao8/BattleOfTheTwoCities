@@ -6,7 +6,6 @@ namespace GameMain
     public class CameraFollowTarget :  MonoBehaviour
     {
         [Header("Config")]
-        public Transform transform;
         public float radius;
 
         private void OnDrawGizmos()

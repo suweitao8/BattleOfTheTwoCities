@@ -38,6 +38,8 @@ namespace GameMain
 
         [HideInInspector] public Rigidbody2D rigid;
         [HideInInspector] public CapsuleCollider2D capsuleCollider;
+        private CameraFollowTarget m_CameraFollowTarget;
+        private PlayerInventory m_PlayerInventory;
 
         private float m_LastJumpTime = 0f;
         private float m_LastShootTime = 0f;
@@ -57,6 +59,8 @@ namespace GameMain
             // 获取自身组件
             rigid = GetComponent<Rigidbody2D>();
             capsuleCollider = GetComponent<CapsuleCollider2D>();
+            m_CameraFollowTarget = GetComponent<CameraFollowTarget>();
+            m_PlayerInventory = GetComponent<PlayerInventory>();
         }
 
         protected override void OnShow(object userData)
@@ -70,6 +74,7 @@ namespace GameMain
             walkSpeed = drCharacter.WalkSpeed;
             crouchSpeed = drCharacter.CrouchSpeed;
             transform.position = new Vector3(10f, 10f);
+            GameEntry.Camera.AddCameraFollowTarget(m_CameraFollowTarget);
 
             // 状态机
             m_FSM = GameEntry.Fsm.CreateFsm(this
@@ -106,7 +111,8 @@ namespace GameMain
                 TileBoxEntity tileBoxEntity = other.gameObject.GetComponent<TileBoxEntity>();
                 Log.Debug($"拾取到了：{tileBoxEntity.Data.Tile.name}");
                 GameEntry.Entity.HideEntity(tileBoxEntity);
-                // TODO 放置到仓库
+                // 放置到仓库
+                
             }
         }
 
