@@ -31,7 +31,7 @@ namespace GameMain
             }
 
             GameEntry.Tilemap.RegisterTilemapController(this);
-            CreateTileList();
+            RefreshTileList();
         }
 
         private void OnDisable()
@@ -45,44 +45,87 @@ namespace GameMain
             StopAllCoroutines();
         }
 
-        public void OnAttackTile(Vector3 hitPoint, Vector3 worldPosition)
+        /// <summary>
+        /// 攻击一个 Tile
+        /// </summary>
+        public void OnAttackTile(Vector3 hitWorldPoint, Vector3 targetWorldPosition, int attack)
         {
-            Vector3Int cellPos = Tilemap.WorldToCell(worldPosition);
-            TileData data = GetTileDataByCellPosition(cellPos);
+            Vector3Int targetCellPosition = Tilemap.WorldToCell(targetWorldPosition);
+            TileData data = GetTileDataByCellPosition(targetCellPosition);
+            Log.Info($"攻击到Tilemap：{hitWorldPoint} => {targetCellPosition}");
             if (data == null)
             {
                 return;
             }
 
-            data.health--;
+            data.health -= attack;
             if (data.health <= 0)
             {
-                SetTile(cellPos, null);
-                StartCoroutine(DropTileBox(hitPoint, CellToWorldGird(cellPos)));
+                SetTileByCellPosition(targetCellPosition, null);
+                StartCoroutine(DropTileBox(hitWorldPoint, CellToWorldGird(targetCellPosition)));
             }
         }
 
-        public void SetTile(Vector3Int pos, TileBase tile)
+        /// <summary>
+        /// 生成一个 Tile
+        /// </summary>
+        public bool GenerateTile(Vector3 generateWorldPosition, TileBase tile)
+        {
+            if (tile == null)
+            {
+                Log.Error($"【GenerateTile】：Tile为空");
+                return false;
+            }
+
+            return SetTileByCellPosition(WorldToCell(generateWorldPosition), tile);
+        }
+        
+        /// <summary>
+        /// 设置一个 Tile 到指定 CellPosition 上
+        /// <returns>是否设置成功</returns>
+        /// </summary>
+        public bool SetTileByCellPosition(Vector3Int cellPosition, TileBase tile)
         {
             // safety
-            RemoveTileByCellPosition(pos);
-
-            if (tile != null)
+            if (tile == null)
             {
-                DRTileInfo tileInfo = GameEntry.Tilemap.GetTileInfoByName(ruleTile.name);
-                tileDataList.Add(TileData.Create(ruleTile, pos, tileInfo.Health));
+                RemoveTileByCellPosition(cellPosition);
+                return true;
             }
             else
             {
-                RemoveTileByCellPosition(pos);
+                TileData tilleData = GetTileDataByCellPosition(cellPosition);
+                if (tilleData != null)
+                {
+                    return false;
+                }
+                
+                DRTileInfo tileInfo = GameEntry.Tilemap.GetTileInfoByName(ruleTile.name);
+                Tilemap.SetTile(cellPosition, tile);
+                tileDataList.Add(TileData.Create(ruleTile, cellPosition, tileInfo.Health));
+                return true;
             }
         }
 
+        /// <summary>
+        /// CellPosition 转换到 WorldPosition，并且对齐到格子中心
+        /// </summary>
         public Vector3 CellToWorldGird(Vector3Int cellPos)
         {
             return Tilemap.CellToWorld(cellPos).ToVector2XY() + Vector2.one * 0.5f;
         }
 
+        /// <summary>
+        /// World 转 Cell
+        /// </summary>
+        public Vector3Int WorldToCell(Vector3 worldPosition)
+        {
+            return Tilemap.WorldToCell(worldPosition);
+        }
+        
+        /// <summary>
+        /// 放置一个 TileBox
+        /// </summary>
         private IEnumerator DropTileBox(Vector3 original, Vector3 target)
         {
             Vector3 velocity = (target - original) * GameEntry.Tilemap.dropTileBoxSpeed;
@@ -100,6 +143,9 @@ namespace GameMain
                 velocity));
         }
 
+        /// <summary>
+        /// 拿到指定 CellPosition 身上的 TileData
+        /// </summary>
         private TileData GetTileDataByCellPosition(Vector3Int position)
         {
             for (int i = 0; i < tileDataList.Count; i++)
@@ -113,20 +159,26 @@ namespace GameMain
             return null;
         }
 
-        private void RemoveTileByCellPosition(Vector3Int position)
+        /// <summary>
+        /// 移除指定 CellPosition 上面的Tile
+        /// </summary>
+        private void RemoveTileByCellPosition(Vector3Int cellPosition)
         {
             for (int i = 0; i < tileDataList.Count; i++)
             {
-                if (tileDataList[i].position == position)
+                if (tileDataList[i].position == cellPosition)
                 {
-                    Tilemap.SetTile(position, null);
+                    Tilemap.SetTile(cellPosition, null);
                     tileDataList.RemoveAt(i);
                     return;
                 }
             }
         }
 
-        private void CreateTileList()
+        /// <summary>
+        /// 更新 TileList
+        /// </summary>
+        private void RefreshTileList() 
         {
             if (ruleTile == null)
             {

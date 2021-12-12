@@ -153,20 +153,10 @@ namespace GameMain
                 return;
             }
 
-            Bullet bullet = other as Bullet;
-            if (bullet != null)
+            BulletEntity bulletEntity = other as BulletEntity;
+            if (bulletEntity != null)
             {
-                ImpactData entityImpactData = entity.GetImpactData();
-                ImpactData bulletImpactData = bullet.GetImpactData();
-                if (GetRelation(entityImpactData.Camp, bulletImpactData.Camp) == RelationType.Friendly)
-                {
-                    return;
-                }
-
-                int entityDamageHP = CalcDamageHP(bulletImpactData.Attack, entityImpactData.Defense);
-
-                entity.ApplyDamage(bullet, entityDamageHP);
-                GameEntry.Entity.HideEntity(bullet);
+                GameEntry.Entity.HideEntity(bulletEntity);
                 return;
             }
         }

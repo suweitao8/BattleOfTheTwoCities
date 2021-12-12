@@ -14,6 +14,9 @@ namespace GameMain
             public const string Player = "Player";
             public const string TileBox = "TileBox";
             public const string VFXShot = "VFXShot";
+            public const string Bullet = "Bullet";
+            public const string Melee = "Melee";
+            public const string Boom = "Boom";
         }
     }
 }

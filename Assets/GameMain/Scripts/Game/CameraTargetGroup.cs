@@ -95,10 +95,11 @@ namespace GameMain
             right += borderSize;
             down -= borderSize;
             up += borderSize;
-            left = Mathf.Max(left, minX);
-            right = Mathf.Min(right, maxX);
-            down = Mathf.Max(down, minY);
-            up = Mathf.Min(up, MAX_Y);
+            // 边界限定
+            // left = Mathf.Max(left, minX);
+            // right = Mathf.Min(right, maxX);
+            // down = Mathf.Max(down, minY);
+            // up = Mathf.Min(up, MAX_Y);
             
             
             // TODO 计算最大 Orthographisc，计算出错

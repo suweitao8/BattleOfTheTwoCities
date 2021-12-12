@@ -96,9 +96,11 @@ GameObject:
   - component: {fileID: 6756582826624144033}
   - component: {fileID: 6756582826624144032}
   - component: {fileID: 1760499316368827975}
+  - component: {fileID: 8897304655084957607}
+  - component: {fileID: 4848421280682994327}
   m_Layer: 6
   m_Name: Player001
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -135,7 +137,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 3d3645e5edaa33c438b63e35206c6293, type: 2}
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
@@ -169,3 +171,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   radius: 1
+--- !u!114 &8897304655084957607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756582826624144038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587620ba40f24441a4b66dc23872b1bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerIndex: -1
+  leftTileInventory:
+    tile: {fileID: 0}
+    count: 0
+  rightTileInventory:
+    tile: {fileID: 0}
+    count: 0
+--- !u!114 &4848421280682994327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6756582826624144038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b8c7750279685488d45a1eeccde7db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meleeOffset: {x: 0.3, y: 0.5, z: 0}
+  shootOffset: {x: 0.3, y: 0.5, z: 0}

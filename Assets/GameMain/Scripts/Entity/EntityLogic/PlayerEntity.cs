@@ -8,9 +8,15 @@ using UnityGameFramework.Runtime;
 
 namespace GameMain
 {
+    [RequireComponent(typeof(PlayerInventory))]
+    [RequireComponent(typeof(CameraFollowTarget))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(CapsuleCollider2D))]
+    [RequireComponent(typeof(PlayerSkillController))]
     public class PlayerEntity : Entity
     {
-        [Header("Runtime")] public bool isGround = false;
+        [Header("Runtime")] public int playerIndex = -1;
+        public bool isGround = false;
         public bool isHeadBlock = false;
         public bool isFacePlatform = false;
         public bool isHandPlatform = false;
@@ -19,74 +25,86 @@ namespace GameMain
         /// <summary>
         /// 所有角色统一的参数
         /// </summary>
+        private float walkSpeed;
         public float jumpForce = 10f;
         public float jumpInterval = 0.5f;
         public float shootInterval = 0.5f;
         public float meleeInterval = 0.5f;
         public float boomInterval = 0.5f;
-
-        /// <summary>
-        /// Config
-        /// </summary>
-        private float walkSpeed;
-
-        private float crouchSpeed; // 下蹲速度，可能不做
+        
+        // 输入
+        public PlayerInputHandle playerInputHandle;
 
         private PlayerEntityData m_PlayerEntityData;
-        private PlayerInputHandle m_PlayerInputHandle;
         private IFsm<PlayerEntity> m_FSM;
 
         [HideInInspector] public Rigidbody2D rigid;
         [HideInInspector] public CapsuleCollider2D capsuleCollider;
         private CameraFollowTarget m_CameraFollowTarget;
         private PlayerInventory m_PlayerInventory;
+        private PlayerSkillController m_Skill;
 
         private float m_LastJumpTime = 0f;
         private float m_LastShootTime = 0f;
         private float m_LastMeleeTime = 0f;
         private float m_LastBoomTime = 0f;
 
+        public float Face => transform.localScale.x;
+        public Vector3 FaceDirection => Vector3.right * Face;
+
         protected override void OnInit(object userData)
         {
             base.OnInit(userData);
-
-            // 装备数据和输入句柄
-            m_PlayerEntityData = userData as PlayerEntityData;
-            m_PlayerInputHandle = GameEntry
-                .PlayerInput
-                .playerInputHandleList[m_PlayerEntityData.PlayerIndex];
 
             // 获取自身组件
             rigid = GetComponent<Rigidbody2D>();
             capsuleCollider = GetComponent<CapsuleCollider2D>();
             m_CameraFollowTarget = GetComponent<CameraFollowTarget>();
             m_PlayerInventory = GetComponent<PlayerInventory>();
+            m_Skill = GetComponent<PlayerSkillController>();
         }
 
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
             m_PlayerEntityData = userData as PlayerEntityData;
+            
+            // 装备数据和输入句柄
+            playerIndex = m_PlayerEntityData.PlayerIndex;
+            playerInputHandle = GameEntry
+                .PlayerInput
+                .playerInputHandleList[m_PlayerEntityData.PlayerIndex];
 
             // 参数
             IDataTable<DRCharacter> dtCharacter = GameEntry.DataTable.GetDataTable<DRCharacter>();
             DRCharacter drCharacter = dtCharacter.GetDataRow(m_PlayerEntityData.CharacterId);
             walkSpeed = drCharacter.WalkSpeed;
-            crouchSpeed = drCharacter.CrouchSpeed;
             transform.position = new Vector3(10f, 10f);
             GameEntry.Camera.AddCameraFollowTarget(m_CameraFollowTarget);
+            
+            // 注册事件
+            playerInputHandle.OnLB += GenerateTileLeft;
+            playerInputHandle.OnRB += GenerateTileRight;
 
-            // 状态机
+            // 创建状态机
             m_FSM = GameEntry.Fsm.CreateFsm(this
                 , new PlayerMovementState()
                 , new PlayerShootState());
             m_FSM.Start<PlayerMovementState>();
+            
+            // 初始化仓库
+            m_PlayerInventory.Init(playerIndex);
         }
 
         protected override void OnHide(bool isShutdown, object userData)
         {
             base.OnHide(isShutdown, userData);
-
+            
+            // 注销事件
+            playerInputHandle.OnLB -= GenerateTileLeft;
+            playerInputHandle.OnRB -= GenerateTileRight;
+            
+            // 回收状态机
             FsmState<PlayerEntity>[] states = m_FSM.GetAllStates();
             for (int i = 0; i < states.Length; i++)
             {
@@ -112,7 +130,7 @@ namespace GameMain
                 Log.Debug($"拾取到了：{tileBoxEntity.Data.Tile.name}");
                 GameEntry.Entity.HideEntity(tileBoxEntity);
                 // 放置到仓库
-                
+                m_PlayerInventory.TryPickTileBox(tileBoxEntity.Tile);
             }
         }
 
@@ -122,25 +140,27 @@ namespace GameMain
         public void Shoot()
         {
             if (Time.time - m_LastShootTime < shootInterval) return;
-            if (m_PlayerInputHandle.IsShoot == false) return;
+            if (playerInputHandle.IsShoot == false) return;
             m_LastShootTime = Time.time;
             
-            Vector2 pos = transform.position;
-            float face = transform.localScale.x;
-            Vector2 faceDir = Vector2.right * face;
-            RaycastHit2D shootHit =
-                PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (capsuleCollider.size.y / 2f)
-                    , faceDir
-                    , 10f
-                    , GameEntry.Layer.groundLayer);
-            if (shootHit)
-            {
-                // Log.Info($"目标是：{shootHit.collider.name}, 打在：{shootHit.point}");
-                if (shootHit.collider.CompareTag(Constant.Tag.Tilemap))
-                {
-                    GameEntry.Tilemap.AttackTile(shootHit.collider.gameObject, shootHit.point, shootHit.point - shootHit.normal * 0.5f);
-                }
-            }
+            m_Skill.Shoot(1);
+            
+            // Vector2 pos = transform.position;
+            // float face = transform.localScale.x;
+            // Vector2 faceDir = Vector2.right * face;
+            // RaycastHit2D shootHit =
+            //     PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (capsuleCollider.size.y / 2f)
+            //         , faceDir
+            //         , 10f
+            //         , GameEntry.Layer.groundLayer);
+            // if (shootHit)
+            // {
+            //     // Log.Info($"目标是：{shootHit.collider.name}, 打在：{shootHit.point}");
+            //     if (shootHit.collider.CompareTag(Constant.Tag.Tilemap))
+            //     {
+            //         GameEntry.Tilemap.AttackTile(shootHit.collider.gameObject, shootHit.point, shootHit.point - shootHit.normal * 0.5f);
+            //     }
+            // }
         }
 
         /// <summary>
@@ -148,7 +168,7 @@ namespace GameMain
         /// </summary>
         public void GroundMovement()
         {
-            float moveX = m_PlayerInputHandle.Movement.x;
+            float moveX = playerInputHandle.Movement.x;
             rigid.velocity = new Vector2(moveX * walkSpeed, rigid.velocity.y);
         }
 
@@ -158,7 +178,7 @@ namespace GameMain
         public void Jump()
         {
             if (Time.time - m_LastJumpTime < jumpInterval) return;
-            if (m_PlayerInputHandle.IsJump == false) return;
+            if (playerInputHandle.IsJump == false) return;
             // 在地面上和悬挂状态可以使用
             if ((isGround && isHeadBlock == false)
                 || (isGround == false && isHanging == true))
@@ -173,7 +193,7 @@ namespace GameMain
         /// </summary>
         public void UpdateFace()
         {
-            float moveX = m_PlayerInputHandle.Movement.x;
+            float moveX = playerInputHandle.Movement.x;
             if (moveX < -0.1f)
             {
                 transform.localScale = new Vector2(-1f, 1f);
@@ -223,7 +243,7 @@ namespace GameMain
                 isHandPlatform = false;
                 return;
             }
-            float moveX = m_PlayerInputHandle.Movement.x;
+            float moveX = playerInputHandle.Movement.x;
 
             // 手抓判断
             if (moveX > 0.1f && transform.localScale.x > 0.1f)
@@ -275,8 +295,7 @@ namespace GameMain
             }
 
             // 悬挂判断
-            float face = transform.localScale.x;
-            Vector2 faceDir = Vector2.right * face;
+            Vector2 faceDir = FaceDirection.ToVector2XY();
             RaycastHit2D hangUpHit =
                 PhysicsUtility.Raycast2D(pos + faceDir * 0.2f + Vector2.up * (height / 2f + 0.2f)
                     , faceDir
@@ -295,6 +314,22 @@ namespace GameMain
             {
                 isFacePlatform = false;
             }
+        }
+        
+        /// <summary>
+        /// 生成左手的方块
+        /// </summary>
+        private void GenerateTileLeft()
+        {
+            m_PlayerInventory.GenerateTileLeft(FaceDirection);
+        }
+
+        /// <summary>
+        /// 生成右手的方块
+        /// </summary>
+        private void GenerateTileRight()
+        {
+            m_PlayerInventory.GenerateTileRight(FaceDirection);
         }
     }
 }

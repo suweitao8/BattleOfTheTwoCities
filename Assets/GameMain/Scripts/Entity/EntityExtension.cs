@@ -41,17 +41,34 @@ namespace GameMain
         }
 
         #region Show Entity
+
+        /// <summary>
+        /// 子弹
+        /// </summary>
+        public static void ShowBulletEntity(this EntityComponent entityComponent, BulletEntityData data)
+        {
+            entityComponent.ShowEntity(typeof(BulletEntity), Constant.EntityGroup.Bullet, Constant.AssetPriority.Middle, data);
+        }
         
+        /// <summary>
+        /// 一次性特效
+        /// </summary>
         public static void ShowVFXShotEntity(this EntityComponent entityComponent, VFXShotEntityData data)
         {
             entityComponent.ShowEntity(typeof(VFXShotEntity), Constant.EntityGroup.VFXShot, Constant.AssetPriority.Low, data);
         }
 
+        /// <summary>
+        /// 方块
+        /// </summary>
         public static void ShowTileBoxEntity(this EntityComponent entityComponent, TileBoxEntityData data)
         {
             entityComponent.ShowEntity(typeof(TileBoxEntity), Constant.EntityGroup.TileBox, Constant.AssetPriority.Low, data);
         }
-        
+
+        /// <summary>
+        /// 玩家
+        /// </summary>
         public static void ShowPlayerEntity(this EntityComponent entityComponent, PlayerEntityData data)
         {
             entityComponent.ShowEntity(typeof(PlayerEntity), Constant.EntityGroup.Player, Constant.AssetPriority.Most, data);
@@ -82,9 +99,9 @@ namespace GameMain
             entityComponent.ShowEntity(typeof(Armor), "Armor", Constant.AssetPriority.ArmorAsset, data);
         }
 
-        public static void ShowBullet(this EntityComponent entityCompoennt, BulletData data)
+        public static void ShowBullet(this EntityComponent entityCompoennt, BulletEntityData entityData)
         {
-            entityCompoennt.ShowEntity(typeof(Bullet), "Bullet", Constant.AssetPriority.BulletAsset, data);
+            entityCompoennt.ShowEntity(typeof(BulletEntity), "Bullet", Constant.AssetPriority.BulletAsset, entityData);
         }
 
         public static void ShowAsteroid(this EntityComponent entityCompoennt, AsteroidData data)

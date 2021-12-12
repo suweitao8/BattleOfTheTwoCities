@@ -29,7 +29,8 @@ namespace GameMain
             "UISound",
             "Character",
             "CameraSetting",
-            "TileInfo"
+            "TileInfo",
+            "Bullet"
         };
 
         private Dictionary<string, bool> m_LoadedFlag = new Dictionary<string, bool>();

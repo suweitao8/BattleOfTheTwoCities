@@ -65,11 +65,6 @@ namespace GameMain
             {
                 Vector3 point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 m_TargetPosition = new Vector3(point.x, 0f, point.z);
-
-                for (int i = 0; i < m_Weapons.Count; i++)
-                {
-                    m_Weapons[i].TryAttack();
-                }
             }
 
             Vector3 direction = m_TargetPosition - CachedTransform.localPosition;

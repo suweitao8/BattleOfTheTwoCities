@@ -135,6 +135,9 @@ namespace GameMain
             m_StopShakeTime = Time.time + duration;
         }
         
+        /// <summary>
+        /// 使用默认的震动参数
+        /// </summary>
         public void TriggerShake(GamepadShakeType shakeType)
         {
             switch (m_ShakeType)

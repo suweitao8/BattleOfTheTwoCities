@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tilemap
   - TileBox
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Platform
   - Enemy
   - Prop
-  - 
+  - Bullet
   - 
   - 
   - 
@@ -58,6 +59,12 @@ TagManager:
   - name: Prop
     uniqueID: 754190681
     locked: 0
+  - name: Attack
+    uniqueID: 360745391
+    locked: 0
   - name: Test_FollowTarget
     uniqueID: 2729499389
+    locked: 0
+  - name: Particle
+    uniqueID: 999793975
     locked: 0

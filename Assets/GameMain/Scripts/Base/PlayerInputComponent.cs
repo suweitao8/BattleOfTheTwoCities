@@ -240,7 +240,6 @@ namespace GameMain
             int playerIndex = TryAddPlayerInputHandle(context);
             if (playerIndex != 0) return;
             if (context.ReadValueAsButton() == false) return;
-            Log.Info($"OnConfirm");
             OnSubmitAction?.Invoke();
         }
 
@@ -249,7 +248,6 @@ namespace GameMain
             int playerIndex = TryAddPlayerInputHandle(context);
             if (playerIndex != 0) return;
             if (context.ReadValueAsButton() == false) return;
-            Log.Info($"OnCancel");
             OnCancelAction?.Invoke();
         }
 

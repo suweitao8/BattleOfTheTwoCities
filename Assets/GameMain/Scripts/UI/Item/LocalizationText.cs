@@ -21,8 +21,7 @@ namespace GameMain
 
         private void Start()
         {
-            // TODO ReEnable 
-            // UpdateUI();
+            UpdateUI();
         }
 
         /// <summary>
