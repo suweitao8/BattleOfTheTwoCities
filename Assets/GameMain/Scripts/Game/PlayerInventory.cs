@@ -81,9 +81,28 @@ namespace GameMain
         /// </summary>
         private void GenerateTile(TileInventoryData tileInventory, Vector3 faceDirection)
         {
-            if (GameEntry.Tilemap.GenerateTile(transform.position + Vector3.up * 0.5f + faceDirection * 1.5f, tileInventory.tile))
+            RaycastHit2D platformHit = PhysicsUtility.Raycast2D(transform.position + Vector3.up * 0.5f, faceDirection, 1.5f, GameEntry.Layer.groundLayer);
+            if (platformHit)
             {
-                tileInventory.count -= 1;
+                Vector3 targetPosition = platformHit.point + platformHit.normal * 0.5f;
+                Vector3? generatePosition =
+                    GameEntry.Tilemap.GetGenerateTilePosition(targetPosition, tileInventory.tile);
+                if (generatePosition == null || Vector3.Distance(generatePosition.Value, transform.position + Vector3.up) < 1f)
+                {
+                    return;
+                }
+                
+                if (GameEntry.Tilemap.GenerateTile(targetPosition, tileInventory.tile))
+                {
+                    tileInventory.count -= 1;
+                }
+            }
+            else
+            {
+                if (GameEntry.Tilemap.GenerateTile(transform.position + Vector3.up * 0.5f + faceDirection * 1.5f, tileInventory.tile))
+                {
+                    tileInventory.count -= 1;
+                }
             }
         }
 

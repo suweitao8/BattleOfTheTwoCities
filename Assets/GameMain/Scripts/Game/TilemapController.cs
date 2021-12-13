@@ -81,6 +81,14 @@ namespace GameMain
         }
         
         /// <summary>
+        /// 获取生成 Tile 的位置
+        /// </summary>
+        public Vector3 GetGenerateTilePosition(Vector3 generateWorldPosition)
+        {
+            return CellToWorldGird(WorldToCell(generateWorldPosition));
+        }
+        
+        /// <summary>
         /// 设置一个 Tile 到指定 CellPosition 上
         /// <returns>是否设置成功</returns>
         /// </summary>

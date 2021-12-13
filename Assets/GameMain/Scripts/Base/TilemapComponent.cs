@@ -48,7 +48,7 @@ namespace GameMain
         /// <summary>
         /// 生成一个Tile
         /// </summary>
-        public bool GenerateTile(Vector3 generatePosition, TileBase tile)
+        public bool GenerateTile(Vector3 generateWorldPosition, TileBase tile)
         {
             TilemapController tilemapController = GetTilemapControllerByTile(tile);
             if (tilemapController == null)
@@ -56,7 +56,21 @@ namespace GameMain
                 return false;
             }
 
-            return tilemapController.GenerateTile(generatePosition, tile);
+            return tilemapController.GenerateTile(generateWorldPosition, tile);
+        }
+        
+        /// <summary>
+        /// 获取生成 Tile 的位置
+        /// </summary>
+        public Vector3? GetGenerateTilePosition(Vector3 generateWorldPosition, TileBase tile)
+        {
+            TilemapController tilemapController = GetTilemapControllerByTile(tile);
+            if (tilemapController == null)
+            {
+                return null;
+            }
+
+            return tilemapController.GetGenerateTilePosition(generateWorldPosition);
         }
         
         /// <summary>

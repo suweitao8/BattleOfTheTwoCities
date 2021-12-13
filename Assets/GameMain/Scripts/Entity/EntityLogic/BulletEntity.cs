@@ -19,8 +19,17 @@ namespace GameMain
     {
         public BulletEntityData data = null;
 
-        private float m_DestroyTime; 
-        
+        private float m_DestroyTime;
+        private BoxCollider2D m_Collider;
+        private Collider2D[] m_Contacts = new Collider2D[5];
+
+        protected override void OnInit(object userData)
+        {
+            base.OnInit(userData);
+            
+            m_Collider = GetComponent<BoxCollider2D>();
+        }
+
         protected override void OnShow(object userData)
         {
             base.OnShow(userData);
@@ -29,8 +38,30 @@ namespace GameMain
             transform.position = data.Position;
             transform.right = data.direction;
             
-            // TODO 在子弹一开始生成的时候就判断是否触发
+            // 在子弹一开始生成的时候就判断是否触发
+            ContactFilter2D filter = new ContactFilter2D();
+            filter.useTriggers = true;
+            filter.layerMask = GameEntry.Layer.attackLayer;
+            
+            int overlapCount = Physics2D.OverlapBoxNonAlloc(transform.position.ToVector2XY() + m_Collider.offset, 
+                m_Collider.size,
+                0f,
+                m_Contacts);
+            for (int i = 0; i < overlapCount; i++)
+            {
+                if (m_Contacts[i].CompareTag(Constant.Tag.Tilemap))
+                {
+                    Log.Info($"【{name}】一开始就碰到了Tilemap");
+                    GameEntry.Tilemap.AttackTile(m_Contacts[i].gameObject, 
+                        transform.position, 
+                        transform.position + transform.right * 0.5f,
+                        data.attack);
+                    GameEntry.Entity.HideEntity(this);
+                    return;
+                }
+            }
 
+            // 正常射击
             StartCoroutine(AutoDestroy());
         }
 
@@ -52,6 +83,7 @@ namespace GameMain
         {
             if (other.CompareTag(Constant.Tag.Tilemap))
             {
+                Log.Info($"【{name}】终于就碰到了Tilemap");
                 GameEntry.Tilemap.AttackTile(other.gameObject, 
                     transform.position, 
                     transform.position + transform.right * 0.5f,

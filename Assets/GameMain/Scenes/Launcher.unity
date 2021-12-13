@@ -1570,3 +1570,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  attackLayer:
+    serializedVersion: 2
+    m_Bits: 1984

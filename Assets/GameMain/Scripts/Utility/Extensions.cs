@@ -20,5 +20,13 @@ namespace GameMain
 
             return ruleTile.m_DefaultSprite;
         }
+
+        public static void Clear<T>(this T[] array) where T : class
+        {
+            for (int i = 0; i < array.Length; i++)
+            {
+                array[i] = null;
+            }
+        }
     }
 }

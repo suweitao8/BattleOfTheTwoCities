@@ -29,7 +29,7 @@ namespace GameMain
         {
             base.OnInit(procedureOwner);
 
-            m_Games.Add(GameMode.Survival, new SurvivalGame());
+            // m_Games.Add(GameMode.Survival, new SurvivalGame());
         }
 
         protected override void OnDestroy(ProcedureOwner procedureOwner)
@@ -46,14 +46,14 @@ namespace GameMain
             m_GotoMenu = false;
             GameMode gameMode = (GameMode)procedureOwner.GetData<VarByte>("GameMode").Value;
             m_CurrentGame = m_Games[gameMode];
-            m_CurrentGame.Initialize();
+            // m_CurrentGame.Initialize();
         }
 
         protected override void OnLeave(ProcedureOwner procedureOwner, bool isShutdown)
         {
             if (m_CurrentGame != null)
             {
-                m_CurrentGame.Shutdown();
+                // m_CurrentGame.Shutdown();
                 m_CurrentGame = null;
             }
 
@@ -64,11 +64,11 @@ namespace GameMain
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
 
-            if (m_CurrentGame != null && !m_CurrentGame.GameOver)
-            {
-                m_CurrentGame.Update(elapseSeconds, realElapseSeconds);
-                return;
-            }
+            // if (m_CurrentGame != null && !m_CurrentGame.GameOver)
+            // {
+            //     m_CurrentGame.Update(elapseSeconds, realElapseSeconds);
+            //     return;
+            // }
 
             if (!m_GotoMenu)
             {
